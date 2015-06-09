@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Implementation-Version: 0.1.0-SNAPSHOT
+Implementation-Vendor-Id: org.anc.lapps.oauth
+Build-Jdk: 1.7.0_25
+Built-By: suderman
+Created-By: IntelliJ IDEA
+Main-Class: ${start-class}
+

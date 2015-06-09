@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:button="http://www.lappsgrid.org" th:include="layouts/bootstrap :: page">
+<body>
+<div th:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p>The following JSON was generated:</p>
+                <textarea name="json" id="json" rows="25" cols="65" th:text="${json}"/>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

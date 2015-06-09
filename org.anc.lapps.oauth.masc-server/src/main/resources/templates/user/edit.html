@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="thymeleaf" xmlns:button="button" xmlns:wp="wordpress" xmlns:panel="panel" th:include="layouts/wordpress :: page">
+<body>
+<div th:fragment="content">
+    <wp:section title="Update User Registration">
+        <p>Please fill in all fields.</p>
+        <form th:action="@{/user/update}" method="post" th:object="${data}">
+            <table class="form">
+                <tr>
+                    <td>Username:</td>
+                    <td th:text="${data.username}"></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><input id="email" type="text" th:field="*{email}" onblur="validate()"/> </td>
+                </tr>
+            </table>
+            <ul>
+                <li>
+                    <input id="admin_checkbox" type="checkbox" value="admin"/>
+                    <label for="admin_checkbox">Administrator</label>
+                </li>
+                <li>
+                    <input id="dev_checkbox" type="checkbox" value="dev"/>
+                    <label for="dev_checkbox">Developer</label>
+                </li>
+                <li>
+                    <input id="user_checkbox" type="checkbox" value="user" checked="checked"/>
+                    <label for="user_checkbox">User</label>
+                </li>
+            </ul>
+            <input id="submit" type="submit" class="btn btn-success" value="Add user" disabled="true"/>
+            <button:default icon="edit" href="${'/user/password='+data.username}">Change password</button:default>
+            <a th:href="@{/user/list}" class="btn btn-danger">Cancel</a>
+        </form>
+        <br/>
+        <panel:info>
+            <p><strong>NOTE</strong> Your email address will only be used to send you a
+                confirmation email and to allow you to recover your password should you need to.
+            </p>
+        </panel:info>
+    </wp:section>
+    <script type="application/javascript">
+        function validate() {
+            console.log("Validating form")
+            var valid = true;
+            if ($("#email").val().length == 0) {
+                valid = false;
+                console.log("Email is to short.");
+            }
+            if (valid) {
+                $("#submit").attr("disabled", false);
+            }
+            else {
+                $("#submit").attr("disabled", true);
+            }
+        }
+        function showDialog()
+        {
+            alert("Showing passwor dialog now...")
+            $("#dialog").show();
+        }
+    </script>
+</div>
+</body>
+</html>

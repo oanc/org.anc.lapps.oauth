@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:button="http://www.lappsgrid.org" th:include="layouts/bootstrap :: page">
+<body>
+<div th:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Authorization Request</h1>
+                <p>The application <span th:text="${clientId}">client id</span> is requesting
+                    permission to access the MASC 3.0.0 resource on your behalf.</p>
+                <form action="#" th:action="@{/oauth/submit}" method="post">
+                    <input type="hidden" name="redirect_uri" th:value="${redirect}"/>
+                    <input type="hidden" id="response_type" name="response_type" value="code"/>
+                    <input type="hidden" name="client_id" th:value="${clientId}"/>
+                    <input type="submit" class="btn btn-sm btn-success" value="Authorize"/>
+                    <a href="#" th:href="${redirect}" class="btn btn-sm btn-danger">Deny</a>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

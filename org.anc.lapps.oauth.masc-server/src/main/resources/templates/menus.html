@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:wp="wordpress" xmlns:menu="menu">
+    <head>
+        <title>Menus for the main controllers</title>
+    </head>
+    <head>
+    <div th:fragment="client">
+        <menu:main>
+            <menu:item href="@{/client/list}" active="true">Client</menu:item>
+            <menu:item href="@{/code/list}">Code</menu:item>
+            <menu:item href="@{/token/list}">Token</menu:item>
+        </menu:main>
+    </div>
+    <div th:fragment="code">
+        <menu:main>
+            <menu:item href="@{/client/list}">Client</menu:item>
+            <menu:item href="@{/code/list}" active="true">Code</menu:item>
+            <menu:item href="@{/token/list}">Token</menu:item>
+        </menu:main>
+    </div>
+    <div th:fragment="token">
+        <menu:main>
+            <menu:item href="@{/client/list}">Client</menu:item>
+            <menu:item href="@{/code/list}">Code</menu:item>
+            <menu:item href="@{/token/list}" active="true">Token</menu:item>
+        </menu:main>
+    </div>
+    </head>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:panel="panel" th:fragment="page">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link rel="icon" href="/favicon.ico"/>
+
+    <title th:text="${pageTitle}">OAuth Client Registry</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/application.css}" href="/css/application.css" rel="stylesheet"/>
+    <link th:href="@{/css/bootstrap.css}" href="/css/bootstrap.css" rel="stylesheet"/>
+    <link th:href="@{/css/bootstrap-theme.css}" href="/css/bootstrap-theme.css" rel="stylesheet"/>
+</head>
+
+<body>
+    <div id="content_frame">
+        <div id="nav">
+            <div id="nav_content">
+                <a id="logo" href="http://www.anc.org"></a>
+                <div class="menu">
+                    <ul>
+                        <li th:each="item : ${menu}" th:classappend="${item.active} ? 'current-page-item'">
+                            <a th:href="${item.href}" th:text="${item.label}">Link text</a>
+                        </li>
+                        <li class="pull-right">
+                            <a th:href="@{/logout}">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="subnav">
+            <ul>
+                <li th:each="nav : ${navbar}">
+                    <a th:href="${nav.href}" th:text="${nav.label}">item</a>
+                </li>
+            </ul>
+        </div>
+        <div id="content_wrapper">
+            <div class="panel panel-danger" th:if="${error}">
+                <div class="panel-heading">
+                    <h1 class="panel-title"><span class="glyphicon glyphicon-exclamation-sign"></span> ERROR</h1>
+                </div>
+                <div class="panel-body">
+                    <p th:text="${error}">Error message</p>
+                </div>
+            </div>
+            <div class="panel panel-warning" th:if="${warning}">
+                <div class="panel-heading">
+                    <h1 class="panel-title"><span class="glyphicon glyphicon-warning-sign"></span> ERROR</h1>
+                </div>
+                <div class="panel-body">
+                    <p th:text="${warning}">Warning message</p>
+                </div>
+            </div>
+            <div class="panel panel-primary" th:if="${message}">
+                <div class="panel-heading">
+                    <h1 class="panel-title"><span class="glyphicon glyphicon-info-sign"></span> Info</h1>
+                </div>
+                <div class="panel-body">
+                    <p th:text="${message}">Informational message.</p>
+                </div>
+            </div>
+            <div th:replace="this :: content">
+                <p>Page content should appear here.</p>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <a class="footer-logo" href="http://www.anc.org"></a>&copy; 2002-2015 American National Corpus Project. All rights reserved.
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</body>
+</html>

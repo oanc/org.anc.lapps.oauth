@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:button="http://www.lappsgrid.org" th:include="layouts/bootstrap :: page">
+<body>
+<div th:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>System Information</h1>
+                <table>
+                    <tr th:each="row : ${info}">
+                        <th th:text="${row[0]}">Heading</th>
+                        <td th:text="${row[1]}">Value</td>
+                    </tr>
+                </table>
+                <!--
+                <table>
+                    <tr>
+                        <th>Service URL</th>
+                        <td th:text="${service}"></td>
+                    </tr>
+                    <tr>
+                        <th>Service Redirect</th>
+                        <td th:text="${redirect}"></td>
+                    </tr>
+                    <tr>
+                        <th>Service Token</th>
+                        <td th:text="${token}"></td>
+                    </tr>
+                    <tr>
+                        <th>Resource URL</th>
+                        <td th:text="${resource}"></td>
+                    </tr>
+                    <tr>
+                        <th>Resource AuthorizeL</th>
+                        <td th:text="${authorize}"></td>
+                    </tr>
+                    <tr>
+                        <th>Resource Get Token</th>
+                        <td th:text="${tokenize}"></td>
+                    </tr>
+                </table>
+                -->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:button="http://www.lappsgrid.org" th:include="layouts/bootstrap :: page">
+<body>
+<div th:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    Your authorization code is <span th:text="${code}">code goes here</span>
+                    <button:custom type="success" size="sm" icon="plus" href="${'/planner/get-token?code='+code}">get token</button:custom>
+                </p>
+                <button:custom type="success" icon="repeat" href="@{/planner/index}">Authorize another service</button:custom>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

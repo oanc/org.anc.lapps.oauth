@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:wp="wordpress" xmlns:menu="menu" th:include="layouts/wordpress :: page">
+<body>
+<div th:fragment="content">
+    <wp:page>
+        <wp:section title="Hey">
+            <p th:text="${message}">A message should appear here.</p>
+        </wp:section>
+    </wp:page>
+</div>
+</body>
+</html>

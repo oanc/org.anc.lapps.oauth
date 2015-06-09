@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:button="http://www.lappsgrid.org" th:include="layouts/bootstrap :: page">
+<body>
+<div th:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Clients</h1>
+                <p>These are the client applications that have registered with the ANC'S OAuth server.</p>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Client ID</th>
+                        <th>Secret</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    <tr th:each="client : ${clients}">
+                        <td th:text="${client.id}">id</td>
+                        <td th:text="${client.clientId}">client id</td>
+                        <td th:text="${client.clientSecret}">client secret</td>
+                        <td><button:delete href="${'/clients/delete?id='+client.id}" size="sm"></button:delete></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

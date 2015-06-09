@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:button="http://www.lappsgrid.org" th:include="layouts/bootstrap :: page">
+<body>
+<div th:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Authentication Codes</h1>
+                <p>The following authentication codes have been issued to client applications.</p>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Code</th>
+                        <th>Issued to</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    <tr th:each="code : ${codes}">
+                        <td th:text="${code.id}">id</td>
+                        <td th:text="${code.code}">client id</td>
+                        <td th:text="${code.issuedTo}">client secret</td>
+                        <td><button:delete href="${'/codes/delete?id=' + code.id}">revoke</button:delete></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

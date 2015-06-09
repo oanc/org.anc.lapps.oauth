@@ -1,0 +1,5 @@
+spring.datasource.url=jdbc:postgresql://localhost/lapps-oauth
+spring.datasource.username=lappsoauth
+spring.datasource.password=c2604c53-5545-40b6-bb9d-b3fc06ef7130
+spring.datasource.driverClassName=org.postgresql.Driver
+spring.jpa.hibernate.ddl-auto=create-drop

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:button="http://www.lappsgrid.org" th:include="layouts/bootstrap :: page">
+<body>
+<div th:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>OAuth Client Authorization</h1>
+                <form action="#" th:action="@{/submit}" method="post" th:object="${client}">
+                    <table>
+                        <tr>
+                            <th>Client ID</th>
+                            <td>
+                                <select id="client_id" name="client_id" th:field="*{clientId}">
+                                    <option th:each="cid : ${clients}" th:value="${cid}" th:text="${cid}">client id</option>
+                                </select>
+                            </td>
+                            <td><input type="submit" value="authorize" class="btn btn-sm btn-success"/></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

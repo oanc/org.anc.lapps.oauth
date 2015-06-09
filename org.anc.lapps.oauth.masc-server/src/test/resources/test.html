@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>Test</title>
+    </head>
+    <body>
+        <form>
+            <h2>Assigned Roles</h2>
+            <ul id="assigned">
+                <li id="empty_list">None</li>
+            </ul>
+            <table>
+                <tr>
+                    <td>Roles</td>
+                    <td>
+                        <select id="select">
+                            <option value="admin">Administrator</option>
+                            <option value="dev">Developer</option>
+                            <option value="user">User</option>
+                        </select>
+                    </td>
+                    <td><button onclick="selection()">Add</button> </td>
+                </tr>
+            </table>
+        </form>
+        <script type="application/javascript">
+            function selection() {
+                var role = $("#select").val()
+                console.log("Role is " + role)
+                $("#empty_list").hide();
+                var id = "assigned_role_" + role
+                var html = '<li id="' + id + '">' + role + '<a href="#" onclick="remove()">Remove</a></li>'
+                console.log("Appending html")
+                console.log(html)
+                $("#assigned").append(html)
+            }
+            function remove() {
+                alert("You attempted to remove an item.")
+            }
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    </body>
+
+</html>

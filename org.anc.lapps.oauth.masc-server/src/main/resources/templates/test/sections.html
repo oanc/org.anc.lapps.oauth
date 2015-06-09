@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:wp="wordpress" xmlns:menu="menu" xmlns:button="button" xmlns:panel="panel" th:include="layouts/wordpress :: page">
+<body>
+<div th:fragment="content">
+    <wp:section title="Section with a list">
+        <p th:text="${text}">Replace me.</p>
+        <ol>
+            <li th:each="item : ${list}" th:text="${item}">Item</li>
+        </ol>
+        <button:edit>Edit</button:edit>
+        <button:new>New</button:new>
+        <button:back>Back</button:back>
+    </wp:section>
+    <wp:section title="Section Two">
+        <p>This is the second section.</p>
+        <panel:default>This is a default panel in the second section.</panel:default>
+    </wp:section>
+    <panel:primary heading="Section in a Panel">
+        <p th:text="${text}">This should be replaced.</p>
+        <ol>
+            <li th:each="item : ${list}" th:text="${item}">Item</li>
+        </ol>
+        <button:edit>Edit</button:edit>
+        <button:new>New</button:new>
+        <button:back>Back</button:back>
+    </panel:primary>
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <h1 class="panel-title">Danger Panel</h1>
+        </div>
+        <div class="panel-body">
+            <p th:text="${text}">Replace me.</p>
+            <ol>
+                <li th:each="item : ${list}" th:text="${item}">Item</li>
+            </ol>
+        </div>
+    </div>
+</div>
+</body>
+</html>

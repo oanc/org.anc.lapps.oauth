@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:wp="wordpress" xmlns:menu="menu" th:include="layouts/wordpress :: page">
+<body>
+<div th:fragment="content">
+    <wp:frame>
+        <menu:main>
+            <menu:item active="true">One</menu:item>
+            <menu:item>Two</menu:item>
+            <menu:item>Three</menu:item>
+        </menu:main>
+        <menu:navbar>
+            <menu:item>list</menu:item>
+            <menu:item>edit</menu:item>
+            <menu:item>delete</menu:item>
+        </menu:navbar>
+        <wp:wrapper>
+            <wp:section title="${'Section 1'}">
+                <p>This is the first section.</p>
+            </wp:section>
+            <wp:section title="${'Section 2'}">
+                <p>This is the second section.</p>
+            </wp:section>
+        </wp:wrapper>
+    </wp:frame>
+</div>
+</body>
+</html>

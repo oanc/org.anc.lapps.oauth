@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:wp="wordpress" xmlns:panel="panel" th:include="layouts/simple :: page">
+<body>
+<div th:fragment="content">
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h1 class="panel-title">
+                <span class="glyphicon glyphicon-warning-sign"></span>
+                <span>Warning</span>
+            </h1>
+        </div>
+        <div class="panel-body">
+            <p th:text="${message}">Warning message.</p>
+        </div>
+    </div>
+    <panel:warning heading="Warning" icon="warning-sign">
+        <p th:text="${message}">Warning message.</p>
+    </panel:warning>
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:wp="wordpress" xmlns:menu="menu" th:include="layouts/wordpress :: page">
+<body>
+<div th:fragment="content">
+    <wp:section title="Client Registration">
+        <form action="#" th:action="@{/client/submit}" method="post" th:object="${clientData}">
+            <p>Please enter a name for your application. This name can be anything you
+                want, but it must be longer than 12 characters.</p>
+            <p>Press the <span class="btn btn-sm btn-success">Apply</span> button
+                to generate the client id and client secret for your application.</p>
+            <table class="form">
+                <tr>
+                    <th>Name</th>
+                    <td>
+                        <input id="name" type="text" th:field="*{name}" size="40" onkeydown="checkName()"/>
+                    </td>
+                </tr>
+            </table>
+            <p id="too-short" style="display: none; color: red">The name you have entered is too short. Please keep typing.</p>
+            <br id="break"/>
+            <input id="submit" type="submit" value="Apply" class="btn btn-success" disabled="disabled"/>
+        </form>
+    </wp:section>
+    <script type="application/javascript">
+        function checkName() {
+            var name = $("#name").val();
+            if (name.length > 10) {
+                $("#submit").attr("disabled", false);
+                $("#too-short").hide();
+                $("#break").show()
+            }
+            else {
+                $("#submit").attr("disabled", true);
+                $("#too-short").show();
+                $("#break").hide()
+            }
+        }
+    </script>
+</div>
+</body>
+</html>

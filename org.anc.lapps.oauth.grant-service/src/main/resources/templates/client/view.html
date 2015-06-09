@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:lapps="http://www.lappsgrid.org" th:include="layouts/bootstrap :: page">
+<body>
+<div th:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Your Client ID and Secret</h1>
+                <p>Here is your client ID and client secret.  Please treat these like you would
+                any other username and password combination, i.e. store them in a safe place and
+                don't give them out to anyone.</p>
+                <p>Your application will use this client ID and client secret when accessing
+                protected resources on behalf of a user.</p>
+                <table>
+                    <tr>
+                        <th>Client ID</th>
+                        <td th:text="${clientData.getClientId()}">client ID here</td>
+                    </tr>
+                    <tr>
+                        <th>Client Secret</th>
+                        <td th:text="${clientData.getClientSecret()}">client secret here</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

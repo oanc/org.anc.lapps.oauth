@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:button="http://www.lappsgrid.org" th:include="layouts/bootstrap :: page">
+<body>
+<div th:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Registered Clients</h1>
+                <p>The following clients have been registered.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Client ID</th>
+                            <th>Client Secret</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tr th:each="client : ${clients}">
+                        <td th:text="${client.clientId}">client id</td>
+                        <td th:text="${client.clientSecret}">client secret</td>
+                        <td><button:delete href="${'/planner/client/delete?id='+client.id}" size="sm">delete</button:delete></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

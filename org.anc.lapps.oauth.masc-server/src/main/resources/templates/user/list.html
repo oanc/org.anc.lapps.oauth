@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="thymeleaf" xmlns:button="button" xmlns:wp="wordpress" xmlns:menu="menu" th:include="layouts/wordpress :: page">
+<body>
+<div th:fragment="content">
+    <wp:section title="Registered Users">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Roles</th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.username}">User</td>
+                    <td th:text="${user.password1}">Password</td>
+                    <td th:text="${user.authorities}">Roles</td>
+                    <td th:if="${user.editable}">
+                        <button:edit size="sm" href="${'/user/edit?user='+user.username}">Edit</button:edit>
+                    </td>
+                    <td th:unless="${user.editable}">
+                        <button:edit size="sm" href="#" disabled="true">Edit</button:edit>
+                    </td>
+                    <td th:if="${user.editable}">
+                        <button:delete size="sm" href="${'/user/delete?user='+user.username}">Delete</button:delete>
+                    </td>
+                    <td th:unless="${user.editable}">
+                        <button:delete size="sm" href="#" disabled="true">Delete</button:delete>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </wp:section>
+</div>
+</body>
+</html>

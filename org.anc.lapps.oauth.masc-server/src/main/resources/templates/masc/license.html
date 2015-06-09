@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:wp="wordpress" xmlns:menu="menu" xmlns:button="button" th:include="layouts/wordpress :: page">
+<body>
+<div th:fragment="content">
+    <wp:section title="MASC 3.0.0">
+        <p>The client <strong><em th:text="${data.name}">client</em></strong> is requesting data from the Manually Annotated
+            Sub-Corpus (MASC) v3.0.0 on your behalf.</p>
+        <p>This data is free to use for any purpose, including commercial uses. If
+        you redistribute MASC data we ask that you give attribute to the American
+        National Corpus (<a href="http://www.anc.org">http://www.anc.org)</a>.</p>
+        <p>When citing MASC in research papers or other publications please use:
+        <i>citation needed</i>.</p>
+        <form action="/masc/submit" th:action="@{/masc/submit}" th:object="${data}" method="post">
+            <input type="hidden" name="redirect" value="" th:value="*{redirect}" th:field="*{redirect}"/>
+            <input type="hidden" name="client" value="" th:value="*{id}" th:field="*{id}"/>
+            <input type="hidden" name="name" value="" th:value="*{name}" th:field="*{name}"/>
+            <input type="submit" name="submit" value="Agree" class="btn btn-success"/>
+            <a th:href="@{/masc/disagree}" class="btn btn-danger">Take me back</a>
+        </form>
+    </wp:section>
+</div>
+</body>
+</html>

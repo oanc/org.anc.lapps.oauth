@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="thymeleaf" xmlns:button="button" xmlns:wp="wordpress" xmlns:menu="menu" th:include="layouts/wordpress :: page">
+<body>
+<div th:fragment="content">
+    <wp:section title="Client Registration Complete">
+        <p>The following client has been registered for your use.
+            Please secure this information as you would any password.
+        </p>
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <td th:text="${client.name}">Name</td>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <td th:text="${client.clientId}">Client id</td>
+            </tr>
+            <tr>
+                <th>Secret</th>
+                <td th:text="${client.clientSecret}">Client secret</td>
+            </tr>
+        </table>
+        <button:success th:href="@{/client/register}" icon="plus">Register another client.</button:success>
+    </wp:section>
+</div>
+</body>
+</html>

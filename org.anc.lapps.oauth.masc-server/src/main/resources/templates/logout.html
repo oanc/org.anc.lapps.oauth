@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:wp="wordpress" xmlns:panel="panel" xmlns:button="button" th:include="layouts/simple :: page">
+<body>
+<div th:fragment="content">
+    <wp:section title="Log Out">
+        <p>You have been logged out of the application.</p>
+        <button:success href="@{/login}" icon="log-in">Log in again</button:success>
+    </wp:section>
+</div>
+</body>
+</html>

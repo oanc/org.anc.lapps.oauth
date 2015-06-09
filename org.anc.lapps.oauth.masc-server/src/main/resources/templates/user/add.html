@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="thymeleaf" xmlns:button="button" xmlns:wp="wordpress" xmlns:panel="panel" th:include="layouts/wordpress :: page">
+<body>
+<div th:fragment="content">
+    <wp:section title="New User Registration">
+        <p>Please fill in all fields.</p>
+        <form th:action="@{/user/submit}" method="post" th:object="${data}">
+            <table class="form">
+                <tr>
+                    <td>Username</td>
+                    <td><input id="username" type="text" th:field="*{username}" onblur="validate()"/> </td>
+                </tr>
+                <tr>
+                    <td>Passsword</td>
+                    <td><input id="password1" type="password" th:field="*{password1}" onblur="validate()"/></td>
+                </tr>
+                <tr>
+                    <td>Confirm Password</td>
+                    <td><input id="password2" type="password" th:field="*{password2}" onblur="validate()"/> </td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input id="email" type="text" th:field="*{email}" onblur="validate()"/> </td>
+                </tr>
+                <tr>
+                    <td>Administrator</td>
+                </tr>
+            </table>
+            <h3>Roles</h3>
+            <ul>
+                <li><input type="checkbox" name="role" value="admin" th:field="*{roles}"/>Administrator</li>
+                <li><input type="checkbox" name="role" value="dev" th:field="*{roles}"/>Developer</li>
+            </ul>
+            <p id="mismatch" style="display:none; color:red;">The passwords do not match</p>
+            <input id="submit" type="submit" class="btn btn-success" value="Add user" disabled="true"/>
+            <a th:href="@{/user/list}" class="btn btn-danger">Cancel</a>
+        </form>
+        <br/>
+        <panel:info>
+            <p><strong>NOTE</strong> Your email address will only be used to send you a
+                confirmation email and to allow you to recover your password should you need to.
+            </p>
+        </panel:info>
+    </wp:section>
+    <script type="application/javascript">
+        function validate() {
+            console.log("Validating form")
+            var valid = true;
+            var name = $("#username").val();
+            if (name.length == 0) {
+                valid = false;
+                console.log("Name is too short.")
+            }
+            if ($("#email").val().length == 0) {
+                valid = false;
+                console.log("Email is to short.");
+            }
+            var p1 = $("#password1").val()
+            var p2 = $("#password2").val()
+            if (p1.length == 0) {
+                valid = false;
+                console.log("Password #1 is empty");
+            }
+            else if (p2.length == 0) {
+                valid = false;
+                console.log("Password #2 is empty.");
+            }
+            else if (p1 != p2) {
+                valid = false;
+                console.log("Passwords do not match.");
+                $("#mismatch").show()
+            }
+            else {
+                $("#mismatch").hide()
+            }
+            if (valid) {
+                $("#submit").attr("disabled", false);
+            }
+            else {
+                $("#submit").attr("disabled", true);
+            }
+        }
+    </script>
+</div>
+</body>
+</html>

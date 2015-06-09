@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:button="http://www.lappsgrid.org" th:include="layouts/bootstrap :: page">
+<body>
+<div th:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Bearer Tokens</h1>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Token</th>
+                        <th>Assigned To</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    <tr th:each="token : ${tokens}">
+                        <td th:text="${token.id}">id</td>
+                        <td th:text="${token.token}">token</td>
+                        <td th:text="${token.client}">client</td>
+                        <td><button:delete href="${'/tokens/delete?id=' + token.id}"></button:delete></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

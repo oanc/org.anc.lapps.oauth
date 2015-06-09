@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="thymeleaf" xmlns:button="button" xmlns:wp="wordpress" xmlns:menu="menu" th:include="layouts/wordpress :: page">
+<body>
+    <div th:fragment="content">
+        <wp:section title="Registered Clients">
+            <p>The following clients have been registered.</p>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Secret</th>
+                    <th>&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="client : ${clients}">
+                    <td th:text="${client.name}">client name</td>
+                    <td th:text="${client.clientId}">client id</td>
+                    <td th:text="${client.clientSecret}">client secret</td>
+                    <td>
+                        <a href="#" th:href="${'/client/delete?id=' + client.id}" class="btn btn-sm btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </wp:section>
+    </div>
+</body>
+</html>

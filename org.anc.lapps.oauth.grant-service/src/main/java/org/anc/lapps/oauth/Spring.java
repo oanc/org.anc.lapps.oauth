@@ -22,11 +22,11 @@ import org.springframework.context.annotation.Configuration;
 public class Spring extends SpringBootServletInitializer
 {
 	@Value("${menu.index")
-	public static String MENU_INDEX;
+	public String MENU_INDEX;
 	@Value("$menu.client.list")
-	public static String MENU_CLIENT_LIST;
+	public String MENU_CLIENT_LIST;
 	@Value("$menu.client.register")
-	public static String MENU_CLIENT_REGISTER;
+	public String MENU_CLIENT_REGISTER;
 
 	@Bean
 	ButtonDialect getButtonDialect() { return new ButtonDialect(); }

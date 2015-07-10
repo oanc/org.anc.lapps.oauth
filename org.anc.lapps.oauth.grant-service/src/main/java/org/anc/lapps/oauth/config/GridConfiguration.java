@@ -1,11 +1,13 @@
 package org.anc.lapps.oauth.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 /**
  * @author Keith Suderman
  */
-public class GridConfiguration implements Configuration
+@EnableConfigurationProperties
+public class GridConfiguration extends AbstractConfiguration
 {
 	@Value("${grid.service.url}")
 	private String serviceUrl;
@@ -26,39 +28,39 @@ public class GridConfiguration implements Configuration
 
 	}
 
-	@Override
-	public String getServiceUrl()
-	{
-		return serviceUrl;
-	}
-
-	@Override
-	public String getRedirectUrl()
-	{
-		return redirectUrl;
-	}
-
-	@Override
-	public String getTokenRedirectUrl()
-	{
-		return tokenRedirectUrl;
-	}
-
-	@Override
-	public String getResourceUrl()
-	{
-		return resourceUrl;
-	}
-
-	@Override
-	public String getResourceTokenUrl()
-	{
-		return resourceTokenUrl;
-	}
-
-	@Override
-	public String getResourceAuthorizeUrl()
-	{
-		return resourceAuthorizeUrl;
-	}
+//	@Override
+//	public String getServiceUrl()
+//	{
+//		return serviceUrl;
+//	}
+//
+//	@Override
+//	public String getRedirectUrl()
+//	{
+//		return redirectUrl;
+//	}
+//
+//	@Override
+//	public String getTokenRedirectUrl()
+//	{
+//		return tokenRedirectUrl;
+//	}
+//
+//	@Override
+//	public String getResourceUrl()
+//	{
+//		return resourceUrl;
+//	}
+//
+//	@Override
+//	public String getResourceTokenUrl()
+//	{
+//		return resourceTokenUrl;
+//	}
+//
+//	@Override
+//	public String getResourceAuthorizeUrl()
+//	{
+//		return resourceAuthorizeUrl;
+//	}
 }

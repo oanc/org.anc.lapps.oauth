@@ -1,6 +1,9 @@
 package org.anc.lapps.oauth.web;
 
 import org.anc.lapps.oauth.Spring;
+import org.anc.lapps.oauth.config.Configuration;
+import org.anc.lapps.oauth.config.ConfigurationFactory;
+import org.anc.lapps.oauth.config.LocalHostConfiguration;
 import org.anc.lapps.oauth.data.ClientData;
 import org.anc.lapps.oauth.data.Menu;
 import org.anc.lapps.oauth.data.MenuItem;
@@ -35,33 +38,21 @@ import java.util.List;
 @EnableConfigurationProperties
 public class PlannerController
 {
-	@Value("${service.url}")
-	private String MY_URL; // = "http://localhost:9000";
-//	private static final String MY_URL = "http://grid.anc.org:9080/planner";
-	@Value("${service.redirect.url}")
+	@Value("${grid.service.url}")
+	private String SERVICE_URL; // = "http://localhost:9000";
+	@Value("${grid.service.redirect.url}")
 	private String REDIRECT_URL; // = MY_URL + "/authorized";
-	@Value("${service.token.url}")
+	@Value("${grid.service.token.url}")
 	private String TOKEN_REDIRECT; // = MY_URL + "/tokenized";
 
-	@Value("${resource.url}")
+	@Value("${ldc.resource.url}")
 	private String RESOURCE_URL; // = "http://localhost:8080";
-	@Value("${resource.token.url}")
+	@Value("${ldc.resource.token.url}")
 	private String TOKEN_URL; // = RESOURCE_URL + "/oauth/token";
-	@Value("${resource.authorize.url}")
+	@Value("${ldc.resource.authorize.url}")
 	private String AUTHORIZE_URL; // = RESOURCE_URL + "/oauth/authorize";
 
-	// For the debug page only
-//	@Value("${menu.index}")
-//	protected String index;
-//	@Value("${menu.client.list}")
-//	protected String clientList;
-//	@Value("${menu.client.register}")
-//	protected String clientRegister;
-//	protected MainMenu debugMenu
-
-//	private static final String RESOURCE_URL = "https://webann.ldc.upenn.edu";
-//	private static final String TOKEN_URL = RESOURCE_URL + "/grids";
-//	private static final String AUTHORIZE_URL = RESOURCE_URL + "/grids/new";
+//	private final Configuration cfg = ConfigurationFactory.getConfiguration();
 
 	private final Logger logger = LoggerFactory.getLogger(PlannerController.class);
 
@@ -109,9 +100,20 @@ public class PlannerController
 	@RequestMapping(value="/debug", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
 	public String debug(Model model)
 	{
+//		String[][] debugInfo = {
+//				  { "Service URL", cfg.getServiceUrl() },
+//				  { "Service Redirect", cfg.getRedirectUrl()},
+//				  { "Service Redirect 2", cfg.getTokenRedirectUrl()},
+//				  { "Resource URL", cfg.getResourceUrl()},
+//				  { "Resource Authorize", cfg.getResourceAuthorizeUrl()},
+//				  { "Resource Oauth Token", cfg.getResourceTokenUrl()},
+//				  { "Main menu index", menu.index},
+//				  { "Client menu list", menu.clientList},
+//				  { "Client menu register", menu.clientRegister}
+//		};
 		String[][] debugInfo = {
-				  { "Service URL", MY_URL },
-				  { "Service Redirect", REDIRECT_URL},
+				  { "Service URL", SERVICE_URL },
+				  { "Service Redirect", REDIRECT_URL },
 				  { "Service Redirect 2", TOKEN_REDIRECT},
 				  { "Resource URL", RESOURCE_URL},
 				  { "Resource Authorize", AUTHORIZE_URL},
@@ -178,7 +180,6 @@ public class PlannerController
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
 			headers.add("Content-type", MediaType.APPLICATION_FORM_URLENCODED_VALUE);
-//			headers.a
 
 			MultiValueMap<String,String> body = new LinkedMultiValueMap<>();
 			body.add("grant_type", "authorization_code");
@@ -186,13 +187,23 @@ public class PlannerController
 			body.add("client_id", clientId);
 			body.add("client_secret", clientSecret);
 			body.add("redirect_uri", TOKEN_REDIRECT);
-//			String url = makeTokenUrl(code);
-//			rest.postForObject
-//			authToken = rest.getForObject(url, OAuthToken.class);
 			HttpEntity form = new HttpEntity<MultiValueMap<String,String>>(body,headers);
 
 			ResponseEntity<OAuthToken> response = rest.exchange(TOKEN_URL, HttpMethod.POST, form, OAuthToken.class);
+			logger.debug("POST response: {} : {}", response.getStatusCode(), response.getBody());
+			response.getStatusCode();
 			authToken = response.getBody();
+			if (authToken.getAccess() == null)
+			{
+				logger.warn("Remote service did not return an access token");
+				authToken.setAccess("no-access-token-provided");
+			}
+			if (authToken.getRefresh() == null)
+			{
+				logger.info("Remote service did not return a refresh token");
+				authToken.setRefresh("no-refresh-token-provided");
+			}
+			logger.info("Token {} : {}", authToken.getAccess(), authToken.getExpires());
 			//Token token = new Token(authToken.getExpires(), clientId, authToken.getAccess(), authToken.getRefresh());
 			// TODO: This should be saved to a database, but currently the
 			// planner and resource share the same database!

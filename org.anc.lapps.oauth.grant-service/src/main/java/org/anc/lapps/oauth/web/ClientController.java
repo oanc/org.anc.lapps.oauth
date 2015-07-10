@@ -62,6 +62,7 @@ public class ClientController
 		selectMenu(model, menu.selectClientMenu());
 		model.addAttribute("clientData", clientData);
 		model.addAttribute("message", "New client registered.");
+		model.addAttribute("clients", clientDatabase.findAll());
 		return "client/list";
 	}
 

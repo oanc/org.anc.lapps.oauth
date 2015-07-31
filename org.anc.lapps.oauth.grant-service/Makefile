@@ -6,6 +6,8 @@ help:
 	@echo "         jar : generates a runnable jar file."
 	@echo "       clean : removes build artifacts."
 	@echo "      deploy : copies the war to the local tomcat."
+	@echo "         all : cleans, packages the war file, and deploys"
+	@echo "             : to tomcat."
 	@echo "        help : prints this help screen."
 	@echo
 	
@@ -19,4 +21,9 @@ clean:
 	mvn clean
 	
 deploy:
-	sudo cp target/planner.war /usr/share/tomcat/server-1/webapps
+	cp target/planner.war /usr/share/tomcat/server-1/webapps
+
+all:
+	mvn clean package -Pwar
+	cp target/planner.war /usr/share/tomcat/server-1/webapps
+

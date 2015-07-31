@@ -156,23 +156,6 @@ public class PlannerController
 		return "redirect:" + serverUrl;
 	}
 
-//	@RequestMapping(value = "/authorized")
-//	public String authorized(@RequestParam(value="code",defaultValue = "") String code, Model model)
-//	{
-//		if (code.length() == 0)
-//		{
-//			index(model);
-//			model.addAttribute("error", "Authorization denied.");
-//			logger.info("Authorization denied.");
-//			return "planner/index";
-//		}
-//		logger.info("Authorized with code {}", code);
-//		model.addAttribute("code", code);
-////		selectMenu(model, plannerMenu);
-//		selectMenu(model, menu.selectPlannerMenu());
-//		return "planner/view";
-//	}
-
 	@RequestMapping(value = "/authorized")
 	public String authorized(@RequestParam(value="code",defaultValue = "") String code, Model model)
 	{
@@ -184,79 +167,96 @@ public class PlannerController
 			return "planner/index";
 		}
 		logger.info("Authorized with code {}", code);
-
-		ObjectMapper mapper = new ObjectMapper();
-		OAuthToken authToken;
-		RestTemplate rest = new RestTemplate();
-		try
-		{
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
-			headers.add("Content-type", MediaType.APPLICATION_FORM_URLENCODED_VALUE);
-
-			MultiValueMap<String,String> body = new LinkedMultiValueMap<>();
-			body.add("grant_type", "authorization_code");
-			body.add("code", code);
-			body.add("client_id", clientId);
-			body.add("client_secret", clientSecret);
-			body.add("redirect_uri", TOKEN_REDIRECT);
-			HttpEntity form = new HttpEntity<MultiValueMap<String,String>>(body,headers);
-
-			ResponseEntity<String> response = rest.exchange(TOKEN_URL, HttpMethod.POST, form, String.class);
-			logger.debug("POST status: {}", response.getStatusCode());
-			logger.debug("Response Body: {}", response.getBody());
-
-//			HttpStatus status = response.getStatusCode();
-			String responseBody = response.getBody();
-			if (responseBody == null)
-			{
-				List<String> errors = new ArrayList();
-				errors.add("Remote service returned an empty body.");
-				errors.add(response.toString());
-				model.addAttribute("errors", errors);
-				return index(model);
-			}
-
-			authToken = mapper.readValue(response.getBody(), OAuthToken.class);
-			if (authToken.getAccess() == null)
-			{
-				logger.warn("Remote service did not return an access token");
-				authToken.setAccess("no-access-token-provided");
-			}
-			if (authToken.getRefresh() == null)
-			{
-				logger.info("Remote service did not return a refresh token");
-				authToken.setRefresh("no-refresh-token-provided");
-			}
-			logger.info("Token {} : {}", authToken.getAccess(), authToken.getExpires());
-			//Token token = new Token(authToken.getExpires(), clientId, authToken.getAccess(), authToken.getRefresh());
-			// TODO: This should be saved to a database, but currently the
-			// planner and resource share the same database!
-			model.addAttribute("token", authToken);
-			tokenDatabase.save(new Token(authToken.getExpires(), authToken.getAccess()));
-			model.addAttribute("client", clientId);
-//			selectMenu(model, plannerMenu);
-			selectMenu(model, menu.selectPlannerMenu());
-			return "planner/granted";
-		}
-		catch (RestClientException e)
-		{
-			List<String> errors = new ArrayList();
-			errors.add("Error communicating with the remote service.");
-			errors.add(e.getMessage());
-			model.addAttribute("errors", errors);
-			return index(model);
-		}
-		catch (IOException e)
-		{
-			List<String> errors = new ArrayList();
-			errors.add("Error communicating with the remote service.");
-			errors.add(e.getMessage());
-			model.addAttribute("errors", errors);
-			return index(model);
-		}
+		model.addAttribute("code", code);
+//		selectMenu(model, plannerMenu);
+		selectMenu(model, menu.selectPlannerMenu());
+		return "planner/view";
 	}
 
+//	@RequestMapping(value = "/authorized")
+//	public String authorized(@RequestParam(value="code",defaultValue = "") String code, Model model)
+//	{
+//		if (code.length() == 0)
+//		{
+//			index(model);
+//			model.addAttribute("error", "Authorization denied.");
+//			logger.info("Authorization denied.");
+//			return "planner/index";
+//		}
+//		logger.info("Authorized with code {}", code);
+//
+//		ObjectMapper mapper = new ObjectMapper();
+//		OAuthToken authToken;
+//		RestTemplate rest = new RestTemplate();
+//		try
+//		{
+//			HttpHeaders headers = new HttpHeaders();
+//			headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+//			headers.add("Content-type", MediaType.APPLICATION_FORM_URLENCODED_VALUE);
+//
+//			MultiValueMap<String,String> body = new LinkedMultiValueMap<>();
+//			body.add("grant_type", "authorization_code");
+//			body.add("code", code);
+//			body.add("client_id", clientId);
+//			body.add("client_secret", clientSecret);
+//			body.add("redirect_uri", TOKEN_REDIRECT);
+//			HttpEntity form = new HttpEntity<MultiValueMap<String,String>>(body,headers);
+//
+//			ResponseEntity<String> response = rest.exchange(TOKEN_URL, HttpMethod.POST, form, String.class);
+//			logger.debug("POST status: {}", response.getStatusCode());
+//			logger.debug("Response Body: {}", response.getBody());
+//
+////			HttpStatus status = response.getStatusCode();
+//			String responseBody = response.getBody();
+//			if (responseBody == null)
+//			{
+//				List<String> errors = new ArrayList();
+//				errors.add("Remote service returned an empty body.");
+//				errors.add(response.toString());
+//				model.addAttribute("errors", errors);
+//				return index(model);
+//			}
+//
+//			authToken = mapper.readValue(response.getBody(), OAuthToken.class);
+//			if (authToken.getAccess() == null)
+//			{
+//				logger.warn("Remote service did not return an access token");
+//				authToken.setAccess("no-access-token-provided");
+//			}
+//			if (authToken.getRefresh() == null)
+//			{
+//				logger.info("Remote service did not return a refresh token");
+//				authToken.setRefresh("no-refresh-token-provided");
+//			}
+//			logger.info("Token {} : {}", authToken.getAccess(), authToken.getExpires());
+//			//Token token = new Token(authToken.getExpires(), clientId, authToken.getAccess(), authToken.getRefresh());
+//			// TODO: This should be saved to a database, but currently the
+//			// planner and resource share the same database!
+//			model.addAttribute("token", authToken);
+//			tokenDatabase.save(new Token(authToken.getExpires(), authToken.getAccess()));
+//			model.addAttribute("client", clientId);
+////			selectMenu(model, plannerMenu);
+//			selectMenu(model, menu.selectPlannerMenu());
+//			return "planner/granted";
+//		}
+//		catch (RestClientException e)
+//		{
+//			List<String> errors = new ArrayList();
+//			errors.add("Error communicating with the remote service.");
+//			errors.add(e.getMessage());
+//			model.addAttribute("errors", errors);
+//			return index(model);
+//		}
+//		catch (IOException e)
+//		{
+//			List<String> errors = new ArrayList();
+//			errors.add("Error communicating with the remote service.");
+//			errors.add(e.getMessage());
+//			model.addAttribute("errors", errors);
+//			return index(model);
+//		}
+//	}
+//
 
 	@RequestMapping(value = "/get-token")
 	public String getToken(@RequestParam("code") String code, Model model)

@@ -1,5 +1,6 @@
 package org.anc.lapps.oauth.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.anc.lapps.oauth.Spring;
 import org.anc.lapps.oauth.config.Configuration;
 import org.anc.lapps.oauth.config.ConfigurationFactory;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -173,6 +175,7 @@ public class PlannerController
 	@RequestMapping(value = "/get-token")
 	public String getToken(@RequestParam("code") String code, Model model)
 	{
+		ObjectMapper mapper = new ObjectMapper();
 		OAuthToken authToken;
 		RestTemplate rest = new RestTemplate();
 		try
@@ -189,10 +192,13 @@ public class PlannerController
 			body.add("redirect_uri", TOKEN_REDIRECT);
 			HttpEntity form = new HttpEntity<MultiValueMap<String,String>>(body,headers);
 
-			ResponseEntity<OAuthToken> response = rest.exchange(TOKEN_URL, HttpMethod.POST, form, OAuthToken.class);
-			logger.debug("POST response: {} : {}", response.getStatusCode(), response.getBody());
-			response.getStatusCode();
-			authToken = response.getBody();
+			ResponseEntity<String> response = rest.exchange(TOKEN_URL, HttpMethod.POST, form, String.class);
+			logger.debug("POST status: {}", response.getStatusCode());
+			logger.debug("Response Body: {}", response.getBody());
+
+//			HttpStatus status = response.getStatusCode();
+//			String responseBody = response.getBody();
+			authToken = mapper.readValue(response.getBody(), OAuthToken.class);
 			if (authToken.getAccess() == null)
 			{
 				logger.warn("Remote service did not return an access token");
@@ -214,6 +220,14 @@ public class PlannerController
 			return "planner/granted";
 		}
 		catch (RestClientException e)
+		{
+			List<String> errors = new ArrayList();
+			errors.add("Error communicating with the remote service.");
+			errors.add(e.getMessage());
+			model.addAttribute("errors", errors);
+			return index(model);
+		}
+		catch (IOException e)
 		{
 			List<String> errors = new ArrayList();
 			errors.add("Error communicating with the remote service.");

@@ -309,7 +309,7 @@ public class PlannerController
 			// TODO: This should be saved to a database, but currently the
 			// planner and resource share the same database!
 			model.addAttribute("token", authToken);
-			tokenDatabase.save(new Token(authToken.getExpires(), authToken.getAccess()));
+//			tokenDatabase.save(new Token(authToken.getExpires(), authToken.getAccess()));
 			model.addAttribute("client", clientId);
 //			selectMenu(model, plannerMenu);
 			selectMenu(model, menu.selectPlannerMenu());

@@ -197,7 +197,16 @@ public class PlannerController
 			logger.debug("Response Body: {}", response.getBody());
 
 //			HttpStatus status = response.getStatusCode();
-//			String responseBody = response.getBody();
+			String responseBody = response.getBody();
+			if (responseBody == null)
+			{
+				List<String> errors = new ArrayList();
+				errors.add("Remote service returned an empty body.");
+				errors.add(response.toString());
+				model.addAttribute("errors", errors);
+				return index(model);
+			}
+			
 			authToken = mapper.readValue(response.getBody(), OAuthToken.class);
 			if (authToken.getAccess() == null)
 			{

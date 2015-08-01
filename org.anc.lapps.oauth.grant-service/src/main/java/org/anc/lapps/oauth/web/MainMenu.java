@@ -32,14 +32,14 @@ public class MainMenu
 	public MainMenu()
 	{
 		menus = new ArrayList<>(2);
-		plannerMenu = new Menu("Planner");
+		plannerMenu = new Menu("LDC");
 		plannerMenu.add("Authorize", index);
 		menus.add(plannerMenu);
 
 		clientMenu = new Menu("Client");
-		clientMenu.add("List", clientList);
-		clientMenu.add("Register", clientRegister);
-		menus.add(clientMenu);
+//		clientMenu.add("List", clientList);
+//		clientMenu.add("Register", clientRegister);
+//		menus.add(clientMenu);
 	}
 
 	public List<Menu> selectPlannerMenu()

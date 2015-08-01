@@ -52,7 +52,7 @@
                             <span th:text="${menu.label}">Menu</span>
                         </a>
                         <ul role="menu" class="dropdown-menu">
-                            <li th:each="item : ${menu.items}"><a th:href="@{item.href}" th:text="${item.label}">Item</a></li>
+                            <li th:each="item : ${menu.items}"><a th:href="${item.href}" th:text="${item.label}">Item</a></li>
                         </ul>
                     </li>
                 </ul>

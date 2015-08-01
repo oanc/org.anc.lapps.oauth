@@ -18,7 +18,7 @@
                     <tr th:each="client : ${clients}">
                         <td th:text="${client.clientId}">client id</td>
                         <td th:text="${client.clientSecret}">client secret</td>
-                        <td><button:delete th:href="@{'/client/delete?id='+client.id}" size="sm">delete</button:delete></td>
+                        <td><button:delete th:href="@{'/client/delete(id='+client.id+')'}" size="sm">delete</button:delete></td>
                     </tr>
                 </table>
             </div>

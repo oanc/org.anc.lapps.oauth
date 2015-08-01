@@ -19,11 +19,11 @@ import java.util.List;
 public class MainMenu
 {
 //	@Value("${menu.index}")
-	protected String index = "/index";
+	protected String index = "/planner/index";
 //	@Value("${menu.client.list}")
-	protected String clientList = "/client/list";
+	protected String clientList = "/planner/client/list";
 //	@Value("${menu.client.register}")
-	protected String clientRegister = "/client/register";
+	protected String clientRegister = "/planner/client/register";
 
 	protected List<Menu> menus;
 	protected Menu plannerMenu;

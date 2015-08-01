@@ -167,10 +167,10 @@ public class PlannerController
 			return "planner/index";
 		}
 		logger.info("Authorized with code {}", code);
-		model.addAttribute("code", code);
-//		selectMenu(model, plannerMenu);
-		selectMenu(model, menu.selectPlannerMenu());
-		return "planner/view";
+//		model.addAttribute("code", code);
+//		selectMenu(model, menu.selectPlannerMenu());
+//		return "planner/view";
+		return getToken(code, model);
 	}
 
 //	@RequestMapping(value = "/authorized")
@@ -293,7 +293,7 @@ public class PlannerController
 				return index(model);
 			}
 
-			authToken = mapper.readValue(response.getBody(), OAuthToken.class);
+			authToken = mapper.readValue(responseBody, OAuthToken.class);
 			if (authToken.getAccess() == null)
 			{
 				logger.warn("Remote service did not return an access token");

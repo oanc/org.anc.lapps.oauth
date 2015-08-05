@@ -6,6 +6,18 @@
         <div class="row">
             <div class="col-md-12">
                 <h1>OAuth Client Authorization</h1>
+                <p>Use this form to obtain an OAuth token that can be used to retrieve Gigaword
+                documents from the Linguistic Data Consortium (LDC).  When you click the
+                    <span class="btn btn-sm btn-success">authorize</span> button you will
+                    be redirected to the LDC login form. When your LDC credentials have been
+                    verified by the LDC you will be redirected back here with a OAuth token
+                    that is valid for one hour.  Copy the <em>access token</em> and paste it into
+                    applications (e.g. http://galaxy.lappsgrid.org) to retreive documents
+                    from the LDC.
+                </p>
+                <p>NOTE: Even with a valid OAuth token, you will not be able to retreive
+                documents from the LDC if you, or your institution, has not purchased access
+                to the resource you are trying to use.</p>
                 <form action="#" th:action="@{/submit}" method="post" th:object="${client}">
                     <table>
                         <tr>

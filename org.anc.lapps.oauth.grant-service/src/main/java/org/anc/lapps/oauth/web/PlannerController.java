@@ -95,7 +95,7 @@ public class PlannerController
 		}
 		model.addAttribute("clients", idList);
 		model.addAttribute("client", new ClientData());
-		model.addAttribute("pageTitle", "Pipeline Planner");
+		model.addAttribute("pageTitle", "LDC Authentication");
 		selectMenu(model, menu.selectPlannerMenu());
 		return "authorize/index";
 	}

@@ -46,7 +46,7 @@ public class Spring extends SpringBootServletInitializer
 
 	public static void main(String[] args)
 	{
-		System.out.println("Staring the Pipeline Planner's SpringApplication");
+		System.out.println("Staring the LDC Authorization SpringApplication");
 		SpringApplication.run(Spring.class, args);
 	}
 }

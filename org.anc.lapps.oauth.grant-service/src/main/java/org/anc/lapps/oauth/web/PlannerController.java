@@ -97,7 +97,7 @@ public class PlannerController
 		model.addAttribute("client", new ClientData());
 		model.addAttribute("pageTitle", "Pipeline Planner");
 		selectMenu(model, menu.selectPlannerMenu());
-		return "planner/index";
+		return "authorize/index";
 	}
 
 	@RequestMapping(value="/debug", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)

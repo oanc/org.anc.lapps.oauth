@@ -1,3 +1,5 @@
+WAR=ldc-authorize.war
+
 help:
 	@echo
 	@echo "GOALS"
@@ -10,20 +12,20 @@ help:
 	@echo "             : to tomcat."
 	@echo "        help : prints this help screen."
 	@echo
-	
+
 war:
 	mvn package -Pwar
-	
+
 jar:
 	mvn package -Pjar
 
 clean:
 	mvn clean
-	
+
 deploy:
-	cp target/planner.war /usr/share/tomcat/server-1/webapps
+	cp target/$(WAR) /usr/share/tomcat/server-1/webapps
 
 all:
 	mvn clean package -Pwar
-	cp target/planner.war /usr/share/tomcat/server-1/webapps
+	cp target/$(WAR) /usr/share/tomcat/server-1/webapps
 

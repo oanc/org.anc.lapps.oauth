@@ -18,12 +18,12 @@ import java.util.List;
 //@ConfigurationProperties(prefix = "menu")
 public class MainMenu
 {
-//	@Value("${menu.index}")
-	protected String index = "/planner/index";
-//	@Value("${menu.client.list}")
-	protected String clientList = "/planner/client/list";
-//	@Value("${menu.client.register}")
-	protected String clientRegister = "/planner/client/register";
+	@Value("${menu.index}")
+	protected String index; // = "/ldc-authorize/index";
+	@Value("${menu.client.list}")
+	protected String clientList; // = "/ldc-authorize/client/list";
+	@Value("${menu.client.register}")
+	protected String clientRegister; // = "/ldc-authorize/client/register";
 
 	protected List<Menu> menus;
 	protected Menu plannerMenu;

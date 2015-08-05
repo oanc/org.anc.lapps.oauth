@@ -134,7 +134,7 @@ public class PlannerController
 
 		model.addAttribute("info", debugInfo);
 		selectMenu(model, menu.selectPlannerMenu());
-		return "planner/debug";
+		return "authorize/debug";
 	}
 
 	@RequestMapping(value = "/submit",method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
@@ -147,7 +147,7 @@ public class PlannerController
 			logger.error("Client not found in the database: {}", clientData.getClientId());
 			index(model);
 			model.addAttribute("error", "No such client found.");
-			return "planner/index";
+			return "authorize/index";
 		}
 		clientId = client.getClientId();
 		clientSecret = client.getClientSecret();
@@ -164,7 +164,7 @@ public class PlannerController
 			index(model);
 			model.addAttribute("error", "Authorization denied.");
 			logger.info("Authorization denied.");
-			return "planner/index";
+			return "authorize/index";
 		}
 		logger.info("Authorized with code {}", code);
 //		model.addAttribute("code", code);
@@ -313,7 +313,7 @@ public class PlannerController
 			model.addAttribute("client", clientId);
 //			selectMenu(model, plannerMenu);
 			selectMenu(model, menu.selectPlannerMenu());
-			return "planner/granted";
+			return "authorize/granted";
 		}
 		catch (RestClientException e)
 		{
